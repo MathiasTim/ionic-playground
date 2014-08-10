@@ -1,0 +1,26 @@
+<ion-view title="Favorites ({{favorites.length}})">
+  <ion-header-bar class="bar-subheader item-input-inset">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+      <input type="search" placeholder="Search" ng-model="textFilter">
+    </label>
+  </ion-header-bar>
+  <ion-content class="has-header contacts-list" overflow-scroll="true">
+    <ul class="list">
+      <li ng-class="{'item-divider item': contact.divider}"
+        ng-repeat="contact in favorites | filter:textFilter"
+        ng-if="contact.divider && !textFilter.length || !contact.divider">
+        <div ng-if="contact.divider">
+          {{contact.letter | uppercaseLetter}}
+        </div>
+        <a class="item" ng-if="!contact.divider" ui-sref="tab.contacts-detail({id: contact.seed})">
+          <span>{{contact.user.name.first | uppercaseLetter}}</span>
+          <b>{{contact.user.name.last | uppercaseLetter}}</b>
+          <img alt="{{contact.user.name.first}} {{contact.user.name.last}}"
+            ng-src="{{contact.user.picture}}"
+            class="avatar">
+        </a>
+      </li>
+    </ul>
+  </ion-content>
+</ion-view>
